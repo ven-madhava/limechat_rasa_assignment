@@ -1,0 +1,123 @@
+version: "2.0"
+
+slots:
+  no_rooms:
+    type: text
+    influence_conversation: true
+
+  type_room:
+    type: text
+    influence_conversation: true
+
+  time_clean:
+    type: text
+    influence_conversation: true
+
+  duration_clean:
+    type: text
+    influence_conversation: true
+
+  time_unit:
+    type: text
+    influence_conversation: true
+
+
+intents:
+  - greet
+  - intent_room_enq
+  - inform_number_rooms
+  - intent_clean_room
+  - intent_simple_room
+  - intent_deluxe_room
+  - faq_ask_checkin_timing
+  - faq_ask_checkout_timing
+  - faq_ask_cancel_reservation
+  - faq_ask_cancel_policy
+  - faq_ask_rest_avail
+  - faq_ask_breakfast_avail
+  - faq_ask_breakfast_timing
+  - faq_ask_resr_timing
+
+
+
+entities:
+  - no_rooms
+  - type_room
+  - time_clean
+  - duration_clean
+  - time_unit
+
+
+responses:
+
+  utter_confirm_clean_absolute_now:
+  - text: "Done. Sending someone rightway to clean you room."
+
+  utter_ask_clean_time:
+  - text: "Please specify time of clean in absolute or relative terms."
+
+  utter_confirm_clean_relative:
+  - text: "Done. Cleaning booked in {duration_clean} {time_unit}!"
+
+  utter_confirm_clean_absolute:
+  - text: "Done. Cleaning booked at {time_clean} hrs!"
+
+  utter_greet:
+  - text: "Hi! how can I help?"
+
+  utter_ask_number_of_rooms:
+  - text: "Please enter number of rooms"
+
+  utter_confirm_details:
+  - text: "{no_rooms} rooms of type {type_room} are now booked!"
+
+  utter_ask_room_type:
+  - buttons:
+    - payload: '/intent_simple_room{{"type_room": "simple"}}'
+      title: simple
+    - payload: '/intent_deluxe_room{{"type_room": "deluxe"}}'
+      title: deluxe
+    text: "Booking {no_rooms} rooms.. Would you like a simple or a deluxe room?"
+
+  # responses for faq
+  ##
+  utter_faq_ask_checkin_timing:
+  - text: "Check-in time starts at 4 PM. Minimum check-in age is 21. Please contact the reception for early check-in requests."
+  utter_faq_ask_checkout_timing:
+  - text: "Check-out time is 11 AM. Please contact the reception for late checkout requests."
+  utter_faq_ask_cancel_reservation:
+  - text: "To cancel a reservation, select the “Reservations” link from the homepage."
+  utter_faq_ask_cancel_reservation_followup:
+  - text: "On the Reservations page, under the heading ‘View, Change or Cancel a Reservation,’ enter your confirmation number, and either the last name on the reservation or the last four digits of the credit card used to make the reservation."
+  utter_faq_ask_cancel_policy:
+  - text: "The booking deposit is refundable if the cancellation occurs at least 15 days before arrival. For cancellations made after this limit, a penalty will be imposed based on the cancellation policy."
+  utter_faq_ask_rest_avail:
+  - text: "Yes, the hotel has a restaurant called the Zephyr Bar. With our menu we strive to reflect the historic art and the spirit of our neighborhood by offering a glimpse into what makes our area unique."
+  utter_faq_ask_breakfast_avail:
+  - text: "The hotel provides its guests with a free made-to-order breakfast each morning."
+  utter_faq_ask_breakfast_timing:
+  - text: "Monday through Friday breakfast is 6 am to 9 am. On Saturday and Sunday, we are open from 7 am to 10:30 am."
+  utter_faq_ask_resr_timing:
+  - text: "Our restaurant serves a dazzling 24-hour menu."
+
+
+
+actions:
+- utter_confirm_clean_absolute_now
+- utter_ask_clean_time
+- utter_confirm_clean_relative
+- utter_confirm_clean_absolute
+- utter_greet
+- utter_ask_number_of_rooms
+- utter_confirm_details
+- utter_ask_room_type
+- utter_faq_ask_checkin_timing
+- utter_faq_ask_checkout_timing
+- utter_faq_ask_cancel_reservation
+- utter_faq_ask_cancel_reservation_followup
+- utter_faq_ask_cancel_policy
+- utter_faq_ask_rest_avail
+- utter_faq_ask_breakfast_avail
+- utter_faq_ask_breakfast_timing
+- utter_faq_ask_resr_timing
+

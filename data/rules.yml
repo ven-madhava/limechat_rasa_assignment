@@ -1,0 +1,69 @@
+version: "2.0"
+
+
+rules:
+
+# rule for faqs
+# dont like to do this since it isnt scalable - but being sensitive for time
+#
+# - rule: respond to faq_ask_checkin_timing
+#   steps:
+#   - intent: faq_ask_checkin_timing
+#   - action: utter_faq_ask_checkin_timing
+
+# - rule: respond to faq_ask_checkout_timing
+#   steps:
+#   - intent: faq_ask_checkout_timing
+#   - action: utter_faq_ask_checkout_timing
+
+# - rule: respond to faq_ask_cancel_reservation
+#   steps:
+#   - intent: faq_ask_cancel_reservation
+#   - action: utter_faq_ask_cancel_reservation
+#   - action: utter_faq_ask_cancel_reservation_followup
+
+# - rule: respond to faq_ask_cancel_policy
+#   steps:
+#   - intent: faq_ask_cancel_policy
+#   - action: utter_faq_ask_cancel_policy
+
+# - rule: respond to faq_ask_rest_avail
+#   steps:
+#   - intent: faq_ask_rest_avail
+#   - action: utter_faq_ask_rest_avail
+
+# - rule: respond to faq_ask_breakfast_avail
+#   steps:
+#   - intent: faq_ask_breakfast_avail
+#   - action: utter_faq_ask_breakfast_avail
+
+# - rule: respond to faq_ask_breakfast_timing
+#   steps:
+#   - intent: faq_ask_breakfast_timing
+#   - action: utter_faq_ask_breakfast_timing
+
+# - rule: respond to faq_ask_resr_timing
+#   steps:
+#   - intent: faq_ask_resr_timing
+#   - action: utter_faq_ask_resr_timing
+
+
+# rule to stay at number of rooms
+#
+ # - rule: activate number of rooms
+ #   steps:
+ #   - intent: intent_room_enq
+ #   - action: utter_ask_number_of_rooms
+ #   - active_loop: utter_ask_number_of_rooms
+
+ # - rule: deactivate number of rooms
+ #   condition:
+ #   - active_loop: utter_ask_number_of_rooms
+ #   steps:
+ #   - action: utter_ask_number_of_rooms
+ #   - intent: inform_number_rooms
+ #   - active_loop: null
+ #   - action: utter_ask_room_type
+
+
+

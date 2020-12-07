@@ -1,0 +1,323 @@
+version: "2.0"
+
+# INTENTS
+#########
+#########
+
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hey
+    - hello
+    - hi there
+    - hello good day
+    - hey there
+    - hi ya
+    - hello there!
+
+
+- intent: intent_room_enq
+  examples: |
+    - i want to book a room
+    - looking to book rooms
+    - here to book a room
+    - book rooms` for stay
+    - booking room please
+    - i want to book rooms
+    - need a booking
+    - i want to book room now
+    - can i make a room booking
+    - i'd like to book a room
+    - i want to room booked
+    - help me book room 
+    - book a room
+    - im here to book a room
+    - here to make a room booking
+
+
+- intent: inform_number_rooms
+  examples: |
+    - [1](no_rooms) room
+    - [2](no_rooms) rooms
+    - [3](no_rooms) rooms
+    - [4](no_rooms) rooms 
+    - [5](no_rooms) rooms
+    - [6](no_rooms) rooms
+    - [7](no_rooms) rooms
+    - [8](no_rooms) rooms
+    - [9](no_rooms) rooms
+    - [10](no_rooms) rooms
+    
+
+
+- intent: intent_simple_room
+  examples: |
+    - simple
+    - normal
+    - simpler
+
+
+- intent: intent_deluxe_room
+  examples: |
+    - deluxe
+    - great
+  
+
+
+- intent: intent_clean_room
+  examples: |
+    - i want my room cleaned
+    - requesting room cleaning
+    - please clean my room [now](time_clean)
+    - i'd like my room cleaned 
+    - send someone to clean my room [now](time_clean)
+    - i want my room cleaned at [3](time_clean) am
+    - clean my room after [2](duration_clean) [hours](time_unit)
+    - arrange for cleaning of room in [1](duration_clean) [hours](time_unit) please
+    - could your arrage for cleaning my room in [30](duration_clean) [minutes](time_unit) 
+    - clean my room after [6](time_clean) pm
+    - arrange to clean my room before [10](time_clean) am
+    - please clean my room before [30](duration_clean) [minutes](time_unit)
+    - clean my room at [2](time_clean) am please
+    - i want my room cleaned by [7](time_clean) pm 
+    - book to clean my roon in [1.5](duration_clean) hours(time_unit)
+    - setup to clean room after [15](duration_clean) minutes(time_unit)
+
+
+# FAQ retrieval intent was messing up
+# having this as normal intents XX
+#
+- intent: faq_ask_checkin_timing
+  examples: |
+    - what is your check-in timing?
+    - can i know the check-in time?
+    - when can i check-in?
+    - what are the timings for check-in?
+    - can i check in early morning?
+    - what are your check in timings?
+    - is there a particular check in time?
+    - have you got early check-in?
+
+- intent: faq_ask_checkout_timing
+  examples: |
+    - what is your check-out timing?
+    - can i know the check-out time?
+    - when can i check-out?
+    - what are the timings for check-out?
+    - can i check out late evening?
+    - what are your check out timings?
+    - is there a particular check out time?
+    - do you have late check-out timings?
+
+- intent: faq_ask_cancel_reservation
+  examples: |
+    - what can i do cancel a reservation?
+    - how do i cancel my reservation?
+    - i want to cancel a reservation
+    - we would like to cancel our reservation
+    - cancel reservation please
+    - info on cancelling my reservation
+    - i need more data on cancelling a reservation
+
+- intent: faq_ask_cancel_policy
+  examples: |
+    - what is your cancellation policy
+    - how do i know your cancellation policy
+    - i want your cancellation policy
+    - we would like to know your cancellation policy
+    - cancellation policy please
+    - info on cancellation policy
+    - i need more data on cancellation policy
+
+- intent: faq_ask_rest_avail
+  examples: |
+    - do you have a restaurant
+    - does your hotel have restaurant
+    - is there a restaurant available
+    - do you guys have a restaurant
+    - is a restaurant there?
+    - is there a restaurant?
+    - do you offer restaurant?
+
+- intent: faq_ask_breakfast_avail
+  examples: |
+    - do you have breakfast
+    - does your hotel have breakfast
+    - is there a breakfast available
+    - do you guys have provide breakfast
+    - is breakfast there?
+    - is there breakfast?
+    - do you offer breakfast for us?
+
+- intent: faq_ask_breakfast_timing
+  examples: |
+    - what are the breakfast timings?
+    - is there timing for breakfast
+    - is there a breakfast timing?
+    - what time does the breakfast start?
+    - when does the breakfast start?
+    - when does the breakfast end?
+    - i'd like know the breakfast timings
+    - what time can we come for breakfast
+
+- intent: faq_ask_resr_timing
+  examples: |
+    - what are the restaurant timings?
+    - is there timing for restaurant
+    - is there a restaurant timing?
+    - when does the restaurant start?
+    - when does the restaurant close?
+    - what time does the restaurant start?
+    - i'd like know the restaurant timings
+    - what time can we come to the restaurant
+
+
+# STORIES
+##########
+##########
+stories:
+
+# book room story
+# 1
+- story: greet and onboard - simple room
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_room_enq
+  - action: utter_ask_number_of_rooms
+  - intent: inform_number_rooms
+  - slot_was_set:
+      - no_rooms: no_rooms
+  - action: utter_ask_room_type
+  - intent: intent_simple_room
+  - slot_was_set:
+      - type_room: "simple"
+  - action: utter_confirm_details
+
+# 2
+- story: greet and onboard - deluxe room
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_room_enq
+  - action: utter_ask_number_of_rooms
+  - intent: inform_number_rooms
+  - slot_was_set:
+      - no_rooms: no_rooms
+  - action: utter_ask_room_type
+  - intent: intent_deluxe_room
+  - slot_was_set:
+      - type_room: "deluxe"
+  - action: utter_confirm_details
+
+
+
+# clean room related stories
+##
+
+# 1
+- story: greet and clean absolute time
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_clean_room
+  - slot_was_set:
+      - time_clean: time_clean
+  - action: utter_confirm_clean_absolute
+
+# 1.1
+- story: greet and clean absolute time as now
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_clean_room
+  - slot_was_set:
+      - time_clean: "now"
+  - action: utter_confirm_clean_absolute_now
+
+
+# 2
+- story: greet and clean relative time
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_clean_room
+  - slot_was_set:
+      - duration_clean: duration_clean
+      - time_unit: time_unit
+  - action: utter_confirm_clean_relative
+
+
+# 3
+- story: greet and clean absolute time with ask clean time action
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_clean_room
+  - action: utter_ask_clean_time
+  - intent: intent_clean_room
+  - slot_was_set:
+      - time_clean: time_clean
+  - action: utter_confirm_clean_absolute
+
+
+# 4
+- story: greet and clean relative time with ask clean time action
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: intent_clean_room
+  - action: utter_ask_clean_time
+  - intent: intent_clean_room
+  - slot_was_set:
+      - duration_clean: duration_clean
+      - time_unit: time_unit
+  - action: utter_confirm_clean_relative
+
+
+# 5 FAQ stories
+- story: story to faq_ask_checkin_timing
+  steps:
+  - intent: faq_ask_checkin_timing
+  - action: utter_faq_ask_checkin_timing
+
+- story: story to faq_ask_checkout_timing
+  steps:
+  - intent: faq_ask_checkout_timing
+  - action: utter_faq_ask_checkout_timing
+
+- story: story to faq_ask_cancel_reservation
+  steps:
+  - intent: faq_ask_cancel_reservation
+  - action: utter_faq_ask_cancel_reservation
+  - action: utter_faq_ask_cancel_reservation_followup
+
+- story: story to faq_ask_cancel_policy
+  steps:
+  - intent: faq_ask_cancel_policy
+  - action: utter_faq_ask_cancel_policy
+
+- story: story to faq_ask_rest_avail
+  steps:
+  - intent: faq_ask_rest_avail
+  - action: utter_faq_ask_rest_avail
+
+- story: story to faq_ask_breakfast_avail
+  steps:
+  - intent: faq_ask_breakfast_avail
+  - action: utter_faq_ask_breakfast_avail
+
+- story: story to faq_ask_breakfast_timing
+  steps:
+  - intent: faq_ask_breakfast_timing
+  - action: utter_faq_ask_breakfast_timing
+
+- story: story to faq_ask_resr_timing
+  steps:
+  - intent: faq_ask_resr_timing
+  - action: utter_faq_ask_resr_timing
+
+
+
+
