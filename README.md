@@ -9,5 +9,3 @@ Both these require rules to be activated and given the restricted time, I couldn
 
 Except for the back-to-conversation-flow feature, the uploaded model should work otherwise for all other listed intents.
 Also would have loved to add decorators like fallback response, conversation ending response etc.
-
--- please ignore test stories. 
